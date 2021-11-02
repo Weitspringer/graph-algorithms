@@ -1,18 +1,20 @@
-from collections import deque
+from queue import Queue
 
-## TODO: Adjacency list
 def bfs(adjacency_list, node_key):
-    # adj_list = {"a": [], "b": [], ...}
-    b = [0] * len(adjacency_list.node_key)
-    q = deque()
-    q.append(node_key)
+    # adjacency_list is of form {"a": [<keys>], "b": [<keys>], ...}
+    b = {}
+    q = Queue()
+    q.put(node_key)
     num = 1
-    b[adjacency_list.keys().index(node_key)] = num
-    while q:
-        current_key = q.pop
-        for i in adjacency_list.current_key:
-            if b[i] == 0:
+    b.update({node_key: num})
+    while not q.empty():
+        current_key = q.get()
+        for i in adjacency_list[current_key]:
+            if i not in b:
                 num += 1
-                q.append(i)
-                b[i] = num
+                q.put(i)
+                b.update({i: num})
     return b
+
+adj = {"a": ["b", "c"], "b": ["c","d"], "c": [], "d": ["a"]}
+print(bfs(adj, "a"))
