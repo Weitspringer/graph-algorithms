@@ -1,4 +1,4 @@
-from collections import deque
+from queue import Queue
 
 
 def simple_bfs(adjacency_list, node_key):
@@ -13,22 +13,15 @@ def simple_bfs(adjacency_list, node_key):
     """
     assert (node_key in adjacency_list), "Specified node key not in adjacency list"
     b = {}
-    q = deque()
-    q.append(node_key)
+    q = Queue()
+    q.put(node_key)
     num = 1
     b.update({node_key: num})
     while q:
-        current_key = q.pop()
+        current_key = q.get()
         for i in adjacency_list[current_key]:
             if i not in b:
                 num += 1
-                q.append(i)
+                q.put(i)
                 b.update({i: num})
     return b
-
-
-if __name__ == "__main__":
-    adj_1 = {"a": ["b", "c"], "b": ["a", "c", "d"], "c": ["a", "b"], "d": ["b"]}
-    print(simple_bfs(adj_1, "a"))
-    adj_2 = {"a": ["b", "c", "d"], "b": ["e"], "c": ["f"], "d": [], "e": ["g"], "f": [], "g": []}
-    print(simple_bfs(adj_2, "a"))
