@@ -17,7 +17,7 @@ def simple_bfs(adjacency_list, node_key):
     q.put(node_key)
     num = 1
     b.update({node_key: num})
-    while q:
+    while not q.empty():
         current_key = q.get()
         for i in adjacency_list[current_key]:
             if i not in b:
