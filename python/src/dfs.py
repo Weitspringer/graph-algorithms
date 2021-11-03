@@ -2,6 +2,15 @@ from collections import deque
 
 
 def simple_dfs(adjacency_list, node_key):
+    """
+    Performs a Depth First Search on a graph given as an adjacency list outgoing from a node.
+    This node is specified by its appropriate key in the adjacency list.
+
+    :adjacency_list: Dictionary of form {"a": [<keys>], "b": [<keys>], ...}
+    :node_key: Starting point node of the graph. Corresponding key in the adjacency list
+    :return: Returns array containing node keys reachable with DFS from the starting node as keys. 
+             The values denote in which order the nodes were found
+    """
     assert (node_key in adjacency_list), "Specified node key not in adjacency list"
     b = {}
     q = deque()
@@ -16,8 +25,3 @@ def simple_dfs(adjacency_list, node_key):
                 if i not in b:
                     q.append(i)
     return b
-
-
-if __name__ == "__main__":
-    adj = {"a": ["b", "c", "d"], "b": ["e"], "c": ["f"], "d": [], "e": ["g"], "f": [], "g": []}
-    print(simple_dfs(adj, "a"))
